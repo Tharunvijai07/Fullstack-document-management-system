@@ -1,0 +1,390 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f4f6fb;
+  color: #1f2937;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.08), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.08), transparent 28%);
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+.app-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.05);
+}
+
+.brand {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tab-button {
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: transparent;
+  color: #4b5563;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.tab-button.active,
+.tab-button:hover {
+  background: #4338ca;
+  color: white;
+}
+
+.notification-wrapper {
+  position: relative;
+}
+
+.notification-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: #4f46e5;
+  color: white;
+  font-size: 1.1rem;
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  min-width: 18px;
+  height: 18px;
+  line-height: 18px;
+  padding: 0 6px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  background: #f97316;
+  color: white;
+}
+
+.notification-panel {
+  position: absolute;
+  right: 0;
+  top: 60px;
+  width: 360px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+  overflow: hidden;
+  z-index: 10;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f3f4f6;
+  background: #fafafa;
+}
+
+.notification-list {
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+.notification-page-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.page-section {
+  display: none;
+  margin-top: 24px;
+}
+
+.page-section.active {
+  display: block;
+}
+
+.section-heading h2 {
+  margin: 0;
+}
+
+.section-heading p {
+  margin: 8px 0 0;
+  color: #6b7280;
+}
+
+.upload-card,
+.table-card {
+  margin-top: 20px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+}
+
+.drop-zone {
+  border: 2px dashed #c7d2fe;
+  border-radius: 18px;
+  padding: 40px;
+  text-align: center;
+  background: #eef2ff;
+  color: #4b5563;
+  position: relative;
+}
+
+.drop-zone input[type=file] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.upload-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.primary-button,
+.secondary-button,
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-weight: 600;
+}
+
+.primary-button {
+  background: #4f46e5;
+  color: white;
+}
+
+.secondary-button {
+  background: #eef2ff;
+  color: #4338ca;
+}
+
+.link-button {
+  background: none;
+  color: #4f46e5;
+  padding: 0;
+}
+
+.upload-list,
+.notification-list.large {
+  margin-top: 20px;
+  display: grid;
+  gap: 14px;
+}
+
+.upload-item,
+.notification-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  background: #ffffff;
+}
+
+.upload-item-header,
+.notification-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.upload-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 14px;
+}
+
+.progress-bar span {
+  display: block;
+  height: 100%;
+  background: #4f46e5;
+  border-radius: 999px;
+  transition: width 0.2s ease;
+}
+
+.document-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  text-align: left;
+  padding: 16px 12px;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+tbody td {
+  padding: 14px 12px;
+  border-top: 1px solid #f3f4f6;
+  color: #4b5563;
+}
+
+tbody tr:hover {
+  background: #f8fafc;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.status-ready {
+  background: #def7ec;
+  color: #047857;
+}
+
+.status-processing {
+  background: #fef9c3;
+  color: #92400e;
+}
+
+.status-failed {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.banner {
+  border-radius: 16px;
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  color: #92400e;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 16px 20px;
+  border-radius: 18px;
+  background: rgba(31, 41, 55, 0.95);
+  color: white;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+  z-index: 20;
+  max-width: 320px;
+}
+
+.notification-item {
+  padding: 16px;
+  display: grid;
+  gap: 8px;
+}
+
+.notification-item.unread {
+  background: #eef2ff;
+}
+
+.notification-item p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.notification-item small {
+  color: #6b7280;
+}
+
+.notification-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.link-button.small {
+  padding: 6px 10px;
+  font-size: 0.88rem;
+}
+
+@media (max-width: 840px) {
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .notification-panel {
+    right: auto;
+    left: 0;
+    width: 100%;
+    max-width: 360px;
+  }
+}

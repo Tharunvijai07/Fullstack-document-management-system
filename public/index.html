@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document Management Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">Document Management Dashboard</div>
+        <nav class="nav-actions">
+          <button class="tab-button active" data-tab="upload">Upload</button>
+          <button class="tab-button" data-tab="documents">Documents</button>
+          <button class="tab-button" data-tab="notifications">Notifications</button>
+        </nav>
+        <div class="notification-wrapper">
+          <button id="notificationToggle" class="notification-button" aria-label="Notifications">
+            <span class="bell-icon">🔔</span>
+            <span id="badge" class="badge">0</span>
+          </button>
+          <div id="notificationPanel" class="notification-panel hidden">
+            <div class="panel-header">
+              <span>Notifications</span>
+              <button id="markAllRead" class="link-button">Mark all read</button>
+            </div>
+            <div id="notificationList" class="notification-list"></div>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <section id="upload" class="page-section active">
+          <div class="section-heading">
+            <h2>Upload Documents</h2>
+            <p>Drag and drop PDF files or use the file selector to upload documents.</p>
+          </div>
+
+          <div id="bulkBanner" class="banner hidden"></div>
+          <div class="upload-card">
+            <div id="dropZone" class="drop-zone">
+              <p>Drag files here or click to choose PDF files.</p>
+              <input id="fileInput" type="file" accept="application/pdf" multiple />
+            </div>
+            <div class="upload-actions">
+              <button id="uploadButton" class="primary-button">Start Upload</button>
+              <button id="toggleProgress" class="secondary-button hidden">Show progress</button>
+            </div>
+            <div id="uploadList" class="upload-list"></div>
+          </div>
+        </section>
+
+        <section id="documents" class="page-section">
+          <div class="section-heading">
+            <h2>Uploaded Documents</h2>
+          </div>
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Size</th>
+                  <th>Type</th>
+                  <th>Uploaded</th>
+                  <th>Status</th>
+                  <th>Download</th>
+                </tr>
+              </thead>
+              <tbody id="documentRows"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="notifications" class="page-section">
+          <div class="section-heading">
+            <h2>Notification Center</h2>
+            <p>All system notifications are saved and available here.</p>
+          </div>
+          <div class="notification-page-actions">
+            <button id="pageMarkAllRead" class="secondary-button">Mark all read</button>
+          </div>
+          <div id="notificationsPageList" class="notification-list large"></div>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
