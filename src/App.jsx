@@ -117,12 +117,53 @@ function App() {
   };
 
   const uploadFile = (item) => {
+    // helper to upload to local server (multer) as a fallback
+    const serverUpload = (itm) =>
+      new Promise((resolve) => {
+        const xhr = new XMLHttpRequest();
+        const fd = new FormData();
+        fd.append('documents', itm.file);
+
+        xhr.open('POST', '/api/upload');
+
+        xhr.upload.onprogress = (event) => {
+          if (event.lengthComputable) {
+            const progress = Math.round((event.loaded / event.total) * 100);
+            updateItem(itm.id, { progress, status: 'uploading' });
+          }
+        };
+
+        xhr.onload = () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            updateItem(itm.id, { progress: 100, status: 'complete' });
+          } else {
+            const message = xhr.responseText || 'Upload failed';
+            updateItem(itm.id, { status: 'failed', error: message });
+          }
+          resolve();
+        };
+
+        xhr.onerror = () => {
+          updateItem(itm.id, { status: 'failed', error: 'Upload request failed' });
+          resolve();
+        };
+
+        xhr.send(fd);
+      });
+
     return new Promise(async (resolve) => {
       try {
         // Request a signature from the server
-        const sigRes = await fetch('/api/cloudinary/sign');
-        if (!sigRes.ok) {
-          updateItem(item.id, { status: 'failed', error: 'Unable to get upload signature' });
+        let sigRes;
+        try {
+          sigRes = await fetch('/api/cloudinary/sign');
+        } catch (e) {
+          sigRes = null;
+        }
+
+        if (!sigRes || !sigRes.ok) {
+          // fallback to server upload if signing isn't available
+          await serverUpload(item);
           return resolve();
         }
 
@@ -176,14 +217,16 @@ function App() {
           resolve();
         };
 
-        xhr.onerror = () => {
-          updateItem(item.id, { status: 'failed', error: 'Upload request failed' });
+        xhr.onerror = async () => {
+          // Try server fallback if Cloudinary upload fails
+          await serverUpload(item);
           resolve();
         };
 
         xhr.send(formData);
       } catch (err) {
-        updateItem(item.id, { status: 'failed', error: String(err) });
+        // final fallback to server
+        await serverUpload(item);
         resolve();
       }
     });
